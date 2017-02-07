@@ -1,35 +1,33 @@
 <!-- Import Modules -->
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/app-route/app-route.html">
-<link rel="import" href="../bower_components/app-route/app-location.html">
-<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 
 <!-- Import styles -->
-<link rel="import" type="css" href="../css/shop-app-css.html">
+<link rel="import" type="css" href="shop-app-css.html">
 
 <!-- Import class -->
-<link rel="import" href="shop-home.html">
-<link rel="import" href="shop-list.html">
 
 <dom-module id="shop-app">
-    <template>
-        <style include="shop-app-styles"></style>
-        <!--
-        <app-location route="{{route}}"></app-location>
-        <app-route
-            route = "{{route}}"
-            pattern = "/:page"
-            data="{{routeData}}"
-            tail="{{routeTail}}">
-        </app-route>
-        -->
-        <p>Test shop-app</p>
-        <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="404">
-            <shop-home name="home"></shop-home>
-            <shop-list name="list"></shop-list>
-            <p name="404">404 web page not found</p>
-        </iron-pages>
-    </template>
+  <template>
+    <style include="shop-app-styles"></style>
 
-    <script type="text/javascript" src="../js/shop-app.js"></script>
+    <app-location route="{{route}}"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="/:page"
+        data="{{routeData}}"
+        tail="{{routeTail}}">
+    </app-route>
+
+    <p>Test shop-app</p>
+    <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="404">
+      <shop-home name="home"></shop-home>
+      <shop-list name="list"></shop-list>
+      <p name="404">404 web page not found</p>
+    </iron-pages>
+  </template>
+
+  <script type="text/javascript" src="shop-app.js"></script>
 </dom-module>
