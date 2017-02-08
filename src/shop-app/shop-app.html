@@ -3,11 +3,17 @@
 <link rel="import" href="../../bower_components/app-route/app-route.html">
 <link rel="import" href="../../bower_components/app-route/app-location.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 
 <!-- Import styles -->
 <link rel="import" type="css" href="shop-app-css.html">
 
 <!-- Import class -->
+<link rel="import" href="../shop-category-data/shop-category-data.html">
 
 <dom-module id="shop-app">
   <template>
@@ -21,7 +27,24 @@
         tail="{{routeTail}}">
     </app-route>
 
-    <p>Test shop-app</p>
+    <!-- TODO: media query of screen pixel is not good -->
+    <iron-media-query query="max-width: 500px" query-matches="{{smallScreen}}"></iron-media-query>
+
+    <shop-category-data categories="{{categories}}"></shop-category-data>
+
+    <paper-icon-button icon="menu" onclick="drawer.toggle()"></paper-icon-button>
+
+    <!-- Lazy load the drawer -->
+    <template is="dom-if" if="[[_shouldRenderDrawer]]">
+      <app-drawer id="drawer" opened="{{drawerOpened}}" swipe-open tabindex="0">
+        <iron-selector role="navigation" class="drawer-list" selected="0" attr-for-delected="name">
+          <a name="home" href="/home">Home</a>
+          <a name="list" href="/list">List</a>
+        </iron-selector>
+      </app-drawer>
+    </template>
+
+    <p>Test shop-app : {{categories.length}}</p>
     <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="error">
       <shop-home name="home"></shop-home>
       <shop-list name="list"></shop-list>

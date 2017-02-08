@@ -9,6 +9,11 @@ Polymer({
       , value: 'home'
       , observer: '_pageChanged'
     }
+
+    // Compute Objects
+    , _shouldRenderDrawer : {
+      computed : '_computeShouldRenderDrawer(page, smallScreen)'
+    }
   }
 
   // observers
@@ -27,5 +32,12 @@ Polymer({
 
   , _routePageChanged(page) {
       this.page = page || 'home';
+      this.drawerOpened = false;
+  }
+
+  , _computeShouldRenderDrawer(page , smallScreen) {
+    var shouldRenderDrawer = smallScreen || page === 'cart' || page === 'checkout';
+    console.log("Should render page : " + shouldRenderDrawer);
+    return shouldRenderDrawer;
   }
 });
