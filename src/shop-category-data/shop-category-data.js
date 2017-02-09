@@ -4,28 +4,41 @@
 Polymer({
   is : 'shop-category-data'
 
+  , ready : function () {
+    this.$.jsonElement.fetchObj('categories', '/data/categories.json');
+  }
+
+  , attached : function() {
+
+  }
+
+  /*
   , properties : {
     categories : {
       type : Array
       , value : []
       , readOnly : false
       , notify : true
+      , observer : '_categoriesChanged'
     }
   }
 
-  , created : function() {
-    this._fetchCategories();
+  // handle observers
+  , _categoriesChanged(categories, oldCategories) {
+    console.log( " Categories Length : " + categories.length);
   }
 
+
   // methods
-  , _fetchCategories : function() {
+
+  , fetchObj : function(obj, urlString) {
     this._getResource({
-      url: '/data/categories.json'
+      url: urlString
       , onLoad: function(e) {
-        this.set('categories', JSON.parse(e.target.responseText));
+        this.set(obj, JSON.parse(e.target.responseText));
       }
       , onError : function(e) {
-        console.log("Error on _fetchCategories");
+        console.log("Error on fetchObj");
       }
     }, 1);
   }
@@ -44,5 +57,6 @@ Polymer({
 
     xhr.open('GET', rq.url);
     xhr.send();
-  },
+  }
+ */
 });

@@ -19,7 +19,22 @@ Polymer({
   // observers
   , observers : [
     '_routePageChanged(routeData.page)'
+    , '_categoriesChanged(categories)'
   ]
+
+  , _routePageChanged(page) {
+    this.page = page || 'home';
+    this.drawerOpened = false;
+  }
+
+  , _categoriesChanged(categories) {
+    console.log ( " Cat change in shop-app : " + categories.length);
+  }
+
+  // ready
+  , ready : function() {
+    this.$.jsonElement.fetchObj('categories', '/data/categories.json');
+  }
 
   // methods
   , _pageChanged: function (page, oldPage) {
@@ -30,10 +45,6 @@ Polymer({
       , true );
   }
 
-  , _routePageChanged(page) {
-      this.page = page || 'home';
-      this.drawerOpened = false;
-  }
 
   , _computeShouldRenderDrawer(page , smallScreen) {
     var shouldRenderDrawer = smallScreen || page === 'cart' || page === 'checkout';
