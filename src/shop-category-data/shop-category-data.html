@@ -4,5 +4,24 @@
     <shop-json id="jsonElement" obj="{{categories}}"></shop-json>
   </template>
 
-  <script type="text/javascript" src="shop-category-data.js"></script>
+  <script>
+    Polymer({
+      is: 'shop-category-data'
+
+      , properties : {
+        categories : {
+          type : Array
+          // DON'T PUT DEFAULT VALUE, as dta binding is both way and will reset the child value
+          // , value : []
+          , readOnly : false
+          , notify : true
+        }
+      }
+
+      , ready: function () {
+         this.$.jsonElement.fetchObj('obj', '/data/categories.json');
+      }
+
+    });
+  </script>
 </dom-module>

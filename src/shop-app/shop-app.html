@@ -14,7 +14,6 @@
 
 <!-- Import class -->
 <link rel="import" href="../shop-category-data/shop-category-data.html">
-<link rel="import" href="../shop-lib/shop-json.html">
 
 <dom-module id="shop-app">
   <template>
@@ -31,11 +30,7 @@
     <!-- TODO: media query of screen pixel is not good -->
     <iron-media-query query="max-width: 500px" query-matches="{{smallScreen}}"></iron-media-query>
 
-
-    <!--
     <shop-category-data id="cat" categories="{{categories}}"></shop-category-data>
-    -->
-    <shop-json id="jsonElement" categories="{{categories}}"></shop-json>
 
     <paper-icon-button icon="menu" onclick="drawer.toggle()"></paper-icon-button>
 

@@ -33,7 +33,7 @@ Polymer({
 
   // ready
   , ready : function() {
-    this.$.jsonElement.fetchObj('categories', '/data/categories.json');
+    
   }
 
   // methods

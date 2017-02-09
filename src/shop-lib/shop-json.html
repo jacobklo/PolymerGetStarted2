@@ -4,20 +4,13 @@
       is : 'shop-json'
 
       , properties : {
-        categories : {
+        obj : {
           type : Array
           , value : []
           , readOnly : false
           , notify : true
-          , observer : '_categoriesChanged'
         }
       }
-
-      // handle observers
-      , _categoriesChanged(categories, oldCategories) {
-        console.log( " Categories Length : " + categories.length);
-      }
-
 
       // methods
 
