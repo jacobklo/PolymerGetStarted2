@@ -15,11 +15,27 @@
           // , value : []
           , readOnly : false
           , notify : true
+          , observer : '_categoriesChanged'
         }
       }
 
+      , _categoriesChanged : function ( categories, oldCategories ) {
+        this.async(function () {
+          for ( var i = 0 ; i < categories.length ; i++ ) {
+            var category = this.$$("#"+categories[i].name);
+            console.log( " aZXX Cat name : " + categories[i].name);
+            // this.$$('#jsonElement' + categories[0].name).fetchObj('obj', '/data/categories/' + categories[0].name + '.json');
+
+            this.properties["category"+i] = categories[i];
+            var shopJson = document.createElement("shop-json");
+            shopJson.setAttribute('obj', '{{category'+i+'}}');
+            shopJson.fetchObj('obj.items', '/data/categories/' + categories[0].name + '.json');
+          }
+        });
+      }
+
       , ready: function () {
-         this.$.jsonElement.fetchObj('obj', '/data/categories.json');
+        this.$.jsonElement.fetchObj('obj', '/data/categories.json');
       }
 
     });
