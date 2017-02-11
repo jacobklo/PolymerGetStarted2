@@ -2,9 +2,16 @@
 <dom-module id="shop-category-data">
   <template>
     <shop-json id="jsonElement" obj="{{categories}}"></shop-json>
+    <shop-json id="jsonElement0" obj="{{category0}}"></shop-json>
+    <shop-json id="jsonElement1" obj="{{category1}}"></shop-json>
+    <shop-json id="jsonElement2" obj="{{category2}}"></shop-json>
+    <shop-json id="jsonElement3" obj="{{category3}}"></shop-json>
+
   </template>
 
   <script>
+    // TODO : WHen Polymer support dynamically create element with data binding ,
+    // change this to truly dynamically load each category.
     Polymer({
       is: 'shop-category-data'
 
@@ -17,27 +24,53 @@
           , notify : true
           , observer : '_categoriesChanged'
         }
+
+        , category0 : {
+          type : Object
+          , observer : '_category0Changed'
+        }
+        , category1 : {
+          type : Object
+          , observer : '_category1Changed'
+        }
+        , category2 : {
+          type : Object
+          , observer : '_category2Changed'
+        }
+        , category3 : {
+          type : Object
+          , observer : '_category3Changed'
+        }
       }
 
       , _categoriesChanged : function ( categories, oldCategories ) {
-        this.async(function () {
-          for ( var i = 0 ; i < categories.length ; i++ ) {
-            var category = this.$$("#"+categories[i].name);
-            console.log( " aZXX Cat name : " + categories[i].name);
-            // this.$$('#jsonElement' + categories[0].name).fetchObj('obj', '/data/categories/' + categories[0].name + '.json');
+        if (categories.length <= 0){
+          return;
+        }
+        // TODO : change to dynamic
+        for ( var i = 0 ; i < categories.length ; i++ ) {
+          this.$$('#jsonElement'+i).fetchObj('obj', '/data/categories/'+categories[i].name+'.json');
+        }
+        //var str = JSON.stringify(this.categories, null, 4);
+        //console.log(str);
+      }
 
-            this.properties["category"+i] = categories[i];
-            var shopJson = document.createElement("shop-json");
-            shopJson.setAttribute('obj', '{{category'+i+'}}');
-            shopJson.fetchObj('obj.items', '/data/categories/' + categories[0].name + '.json');
-          }
-        });
+      , _category0Changed : function ( category0, oldCategory0) {
+        this.set('categories.0.items', this.category0);
+      }
+      , _category1Changed : function ( category1, oldCategory1) {
+        this.set('categories.1.items', this.category1);
+      }
+      , _category2Changed : function ( category2, oldCategory2) {
+        this.set('categories.2.items', this.category2);
+      }
+      , _category3Changed : function ( category3, oldCategory3) {
+        this.set('categories.3.items', this.category3);
       }
 
       , ready: function () {
-        this.$.jsonElement.fetchObj('obj', '/data/categories.json');
+        this.$$('#jsonElement').fetchObj('obj', '/data/categories.json');
       }
-
     });
   </script>
 </dom-module>

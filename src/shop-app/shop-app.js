@@ -51,4 +51,8 @@ Polymer({
     console.log("Should render page : " + shouldRenderDrawer);
     return shouldRenderDrawer;
   }
+
+  , _toggleDrawer : function () {
+    this.drawerOpened = !this.drawerOpened;
+  }
 });
