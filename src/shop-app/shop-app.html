@@ -11,9 +11,10 @@
 <link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <!-- Import styles -->
-<link rel="import" type="css" href="shop-app-css.html">
+<link rel="import" href="shop-app-css.html">
 
 <!-- Import class -->
 <link rel="import" href="../shop-category-data/shop-category-data.html">
@@ -36,21 +37,33 @@
     <shop-category-data id="cat" categories="{{categories}}"></shop-category-data>
 
     <app-header role="navigation" id="header" effects="waterfall" condenses reveals>
-      <app-toobar>
-        <template is="dom-if" if="[[_shouldRenderDrawer]]">
-          <paper-icon-button icon="menu" onclick="_toggleDrawer" aria-label="Categories"></paper-icon-button>
-        </template>
-      </app-toobar>
+      <app-toolbar>
+        <div class="left-bar-item">
+          <paper-icon-button class="menu-btn" icon="menu" on-click="_toggleDrawer" aria-label="Categories"></paper-icon-button>
+        </div>
+        <div class="middle-bar-item" main-title>
+          <a href="/">SHop</a>
+        </div>
+        <div id="right-bar-item">
+          <paper-icon-button icon="shopping-cart" aria-label="Shopping Cart : 0 items"></paper-icon-button>
+        </div>
+      </app-toolbar>
     </app-header>
 
     <!-- Lazy load the drawer -->
     <template is="dom-if" if="[[_shouldRenderDrawer]]">
       <app-drawer id="drawer" opened="{{drawerOpened}}" swipe-open tabindex="0">
         <iron-selector role="navigation" class="drawer-list" selected="0" attr-for-delected="name">
-          <a name="home" href="/home">Home</a>
-          <a name="list" href="/list">List</a>
+          <template id="drawerDomRepeat" is="dom-repeat" items="[[categories]]" as="category">
+            <a name="[[category.name]]" href="/list/[[category.name]]">[[category.title]]</a>
+          </template>
         </iron-selector>
       </app-drawer>
+    </template>
+
+    <!-- Lazy load the tabs for large screen -->
+    <template is="dom-if" if="[[!_shouldRenderDrawer]]">
+      <p> shop tabs </p>
     </template>
 
     <p>Test shop-app : {{categories.length}}</p>

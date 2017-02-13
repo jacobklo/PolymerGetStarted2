@@ -10,9 +10,17 @@ Polymer({
       , observer: '_pageChanged'
     }
 
+    , drawerOpened : {
+      type : Boolean
+      , value : true
+      , readOnly : false
+      , notify : true
+      , observer : '_drawerOpenedChanged'
+    }
+
     // Compute Objects
     , _shouldRenderDrawer : {
-      computed : '_computeShouldRenderDrawer(page, smallScreen)'
+      computed : '_computeShouldRenderDrawer(drawerOpened, page, smallScreen)'
     }
   }
 
@@ -31,6 +39,12 @@ Polymer({
     console.log ( " Cat change in shop-app : " + categories.length);
   }
 
+  , _drawerOpenedChanged(drawerOpened, oldDrawerOpened) {
+    if (this.$.drawerDomRepeat) {
+      this.$.drawerDomRepeat.render();
+    }
+  }
+
   // ready
   , ready : function() {
 
@@ -46,13 +60,13 @@ Polymer({
   }
 
 
-  , _computeShouldRenderDrawer(page , smallScreen) {
-    var shouldRenderDrawer = smallScreen || page === 'cart' || page === 'checkout';
+  , _computeShouldRenderDrawer: function(drawerOpened, page , smallScreen) {
+    var shouldRenderDrawer = drawerOpened || smallScreen || page === 'cart' || page === 'checkout';
     console.log("Should render page : " + shouldRenderDrawer);
     return shouldRenderDrawer;
   }
 
-  , _toggleDrawer : function () {
+  , _toggleDrawer() {
     this.drawerOpened = !this.drawerOpened;
   }
 });
