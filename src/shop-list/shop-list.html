@@ -5,6 +5,8 @@
 
 <!-- Import Class-->
 <link rel="import" href="../shop-category-data/shop-category-data.html">
+<link rel="import" href="shop-list-item.html">
+
 
 <dom-module id="shop-list">
   <template>
@@ -14,11 +16,23 @@
         pattern="/:category"
         data="{{routeData}}"></app-route>
 
-    <shop-category-data id="cat" categories="{{categories}}"></shop-category-data>
+    <!-- REMEMBER : use current-category-name instead of currentCategoryName . CHeck : property-name-mapping-->
+    <shop-category-data id="cat" current-category-name="[[routeData.category]]" current-category="{{category}}"></shop-category-data>
 
-    <p>[[category]]</p>
+    <header>
+      <h2>[[category.title]]</h2>
+      <span>[[category.items.length]] Items</span>
+    </header>
 
-    <p>Test polymer list : [[category.name]]</p>
+    <ul class="grid">
+      <template is="dom-repeat" items="[[_getListItems(category.items)]]">
+        <li>
+          <a href$="[[_getItemHref(category.name,item)]]">
+            <shop-list-item item="[[item]]"></shop-list-item>
+          </a>
+        </li>
+      </template>
+    </ul>
   </template>
 
   <script type="text/javascript" src="shop-list.js"></script>

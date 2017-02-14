@@ -1,0 +1,34 @@
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<dom-module id="shop-list-item">
+  <template>
+    <style>
+      :host {
+        @apply(--layout-vertical);
+        @apply(--layout-center-justified);
+        text-align : center;
+        margin : 0 48px;
+      }
+      .title {
+        color : #00bcd4;
+      }
+
+      .price {
+        color : #0a3142;
+      }
+    </style>
+
+    <img id="img" src="[[item.image]]" alt="[[item.title]]">
+    <div class="title">[[item.title]]</div>
+    <span class="price">[[item.price]]</span>
+  </template>
+  <script>
+    Polymer ({
+      is : 'shop-list-item'
+
+      , properties : {
+        item : Object
+      }
+    })
+  </script>
+</dom-module>

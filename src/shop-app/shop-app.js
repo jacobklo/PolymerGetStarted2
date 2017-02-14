@@ -49,7 +49,7 @@ Polymer({
   , _pageChanged: function (page, oldPage) {
     this.importHref(
       this.resolveUrl("../shop-" + page + "/shop-" + page + ".html")
-      , () => {console.log('Page : ' + page + ' lazy loaded');}
+      , () => {}//console.log('Page : ' + page + ' lazy loaded');}
       , () => {console.log('_pageChanged() Page : ' + page + ' error!');}
       , true );
   }
@@ -57,7 +57,6 @@ Polymer({
 
   , _computeShouldRenderDrawer: function(drawerOpened, page , smallScreen) {
     var shouldRenderDrawer = drawerOpened || smallScreen || page === 'cart' || page === 'checkout';
-    console.log("Should render page : " + shouldRenderDrawer);
     return shouldRenderDrawer;
   }
 

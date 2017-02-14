@@ -16,11 +16,21 @@
       is: 'shop-category-data'
 
       , properties : {
-        categories : {
+        currentCategoryName : {
+          type : String
+          , notify : true
+          , observer : '_currentCategoryNameChanged'
+        }
+
+        , currentCategory : {
+          type : Object
+          , notify : true
+        }
+
+        , categories : {
           type : Array
           // DON'T PUT DEFAULT VALUE, as dta binding is both way and will reset the child value
           // , value : []
-          , readOnly : false
           , notify : true
           , observer : '_categoriesChanged'
         }
@@ -41,36 +51,44 @@
           type : Object
           , observer : '_category3Changed'
         }
-
-        , currentCategoryName : {
-          type : String
-          , observer : '_currentCategoryNameChanged'
-        }
-
-        , currentCategory : {
-          type : Object
-          , readOnly : false
-          , notify : true
-          , computed : '_computeCurrentCategory(currentCategoryName)'
-        }
       }
+
+      // observers
+      , observers : [
+        '_categoriesChanged(categories.*)'
+      ]
 
       , _currentCategoryNameChanged : function (currentCategoryName, oldCurrentCategoryName) {
-        console.log ( " currentCategoryName Changed");
+        this.set('currentCategoryName', currentCategoryName);
+        this.updateCurrentCategory(currentCategoryName);
       }
-      , _categoriesChanged : function ( categories, oldCategories ) {
+
+      , _categoriesChanged : function ( categories ) {
         if (categories.length <= 0){
           return;
         }
         // TODO : change to dynamic
         for ( var i = 0 ; i < categories.length ; i++ ) {
-          this.$$('#jsonElement'+i).fetchObj('obj', '/data/categories/'+categories[i].name+'.json');
+          if (!(categories[i].items)) {
+            this.$$('#jsonElement'+i).fetchObj('obj', '/data/categories/'+categories[i].name+'.json');
+          }
         }
-        //var str = JSON.stringify(this.categories, null, 4);
-        //console.log(str);
-        console.log ( " Cat change in shop-app : " + categories.length);
+        this.updateCurrentCategory(this.currentCategoryName);
       }
 
+      , updateCurrentCategory : function (currentCategoryName) {
+        if ( !(this.categories ) ) {
+          return;
+        }
+        for (var i = 0 ; i < this.categories.length ; i++) {
+          if (currentCategoryName == this.categories[i].name ) {
+            if (this.categories[i].items) // Wait until all items is loaded
+            {
+              this.set('currentCategory', this.categories[i]);
+            }
+          }
+        }
+      }
 
       , _category0Changed : function ( category0, oldCategory0) {
         this.set('categories.0.items', this.category0);
@@ -85,19 +103,22 @@
         this.set('categories.3.items', this.category3);
       }
 
-      , _computeCurrentCategory : function (currentCategoryName) {
-        console.log ( " before loop _computeCurrentCategory : " + c.name);
-        for (var i = 0 ,c ; c = this.categories.length ; i++) {
-          if (c.name === currentCategoryName) {
-            console.log ( " _computeCurrentCategory : " + c.name);
-            return c;
-          }
-        }
-      }
-
       , ready: function () {
         this.$$('#jsonElement').fetchObj('obj', '/data/categories.json');
       }
     });
+
+
+    //var str = JSON.stringify(this.categories, null, 4);
+    //console.log(str);
+    /*
+     var result = ' Categories items : ';
+     for ( var i = 0 ; i < this.categories.length ; i++ ) {
+     if (this.categories[i].items){
+     result += this.categories[i].items.length + ' - ';
+     }
+     }
+     console.log(result);
+     */
   </script>
 </dom-module>

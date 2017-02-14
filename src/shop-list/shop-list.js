@@ -5,27 +5,17 @@ Polymer ({
   is : 'shop-list'
 
   , properties : {
-
-    category : {
-      type : Object
-      , notify : true
-      , observer : '_categoryChanged'
-    }
-
-    , categories : {
-      type : Array
-      , notify : true
-      , observer : '_categoriesChanged'
-    }
+    route : Object
+    , routeData : Object
   }
 
-  , _categoriesChanged : function(categories, oldCategories) {
-    var str = JSON.stringify(this.categories, null, 4);
-    console.log( "_categoriesChanged : " + str);
+  , _getListItems : function (items) {
+    // REMEMBER : placeholder idea from the example is smart
+    return items || [{},{},{},{},{},{},{},{},{},{},{},{} ];
   }
 
-  , _categoryChanged : function (category, oldCategory) {
-    var str = JSON.stringify(this.category, null, 4);
-    console.log( " _categoryChanged : " + str);
+  , _getItemHref : function (categoryName, item) {
+    return (item && item.name) ? "/detail/" + categoryName + "/" + item.name : null;
   }
+
 });

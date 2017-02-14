@@ -1,9 +1,32 @@
 <dom-module id="shop-list-styles">
-    <template>
-        <style is="custom-style">
-            p {
-                color : cadetblue;
-            }
-        </style>
-    </template>
+  <template>
+    <style is="custom-style">
+      header {
+        text-align : center;
+        color : grey;
+      }
+
+      header > span {
+        color : deepskyblue;
+        font-size : 16px;
+      }
+
+      .grid {
+        @apply(--layout-horizontal);
+        @apply(--layout-wrap);
+        @apply(--layout-justified);
+        margin: 0 10px 3px 10px;
+        padding : 0;
+        list-style: none;
+      }
+
+      .grid li {
+        -webkit-flex : 1 1;
+        flex : 1 1;
+        -webkit-flex-basis : 33%;
+        flex-basis : 33%;
+        max-width : 33%;
+      }
+    </style>
+  </template>
 </dom-module>
