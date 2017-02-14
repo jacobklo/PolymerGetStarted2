@@ -10,12 +10,12 @@
   <template>
     <style include="shop-list-styles"></style>
     <app-route
-      route="[[route]]"
-      pattern="/:category"
-      data="{{routeData}}">
-    </app-route>
+        route="[[route]]"
+        pattern="/:category"
+        data="{{routeData}}"></app-route>
 
     <shop-category-data id="cat" categories="{{categories}}"></shop-category-data>
+
     <p>[[category]]</p>
 
     <p>Test polymer list : [[category.name]]</p>

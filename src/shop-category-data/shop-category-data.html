@@ -44,8 +44,7 @@
 
         , currentCategoryName : {
           type : String
-          , readOnly : false
-          , notify : true
+          , observer : '_currentCategoryNameChanged'
         }
 
         , currentCategory : {
@@ -56,6 +55,9 @@
         }
       }
 
+      , _currentCategoryNameChanged : function (currentCategoryName, oldCurrentCategoryName) {
+        console.log ( " currentCategoryName Changed");
+      }
       , _categoriesChanged : function ( categories, oldCategories ) {
         if (categories.length <= 0){
           return;

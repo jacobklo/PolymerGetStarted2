@@ -20,12 +20,12 @@ Polymer ({
   }
 
   , _categoriesChanged : function(categories, oldCategories) {
-    var str = JSON.stringify(this.category, null, 4);
-    console.log(str);
+    var str = JSON.stringify(this.categories, null, 4);
+    console.log( "_categoriesChanged : " + str);
   }
 
   , _categoryChanged : function (category, oldCategory) {
     var str = JSON.stringify(this.category, null, 4);
-    console.log(str);
+    console.log( " _categoryChanged : " + str);
   }
 });
