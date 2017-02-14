@@ -17,7 +17,11 @@
 <link rel="import" href="shop-app-css.html">
 
 <!-- Import class -->
+<!-- TODO : change to lazy load -->
 <link rel="import" href="../shop-category-data/shop-category-data.html">
+<link rel="import" href="../shop-tab/shop-tabs-drawer.html">
+<link rel="import" href="../shop-tab/shop-tabs-bar.html">
+<link rel="import" href="../shop-tab/shop-tab.html">
 
 <dom-module id="shop-app">
   <template>
@@ -32,7 +36,7 @@
     </app-route>
 
     <!-- TODO: media query of screen pixel is not good -->
-    <iron-media-query query="max-width: 500px" query-matches="{{smallScreen}}"></iron-media-query>
+    <iron-media-query query="max-width: 700px" query-matches="{{smallScreen}}"></iron-media-query>
 
     <shop-category-data id="cat" categories="{{categories}}"></shop-category-data>
 
@@ -42,34 +46,48 @@
           <paper-icon-button class="menu-btn" icon="menu" on-click="_toggleDrawer" aria-label="Categories"></paper-icon-button>
         </div>
         <div class="middle-bar-item" main-title>
-          <a href="/">SHop</a>
+          <!-- TODO : Not sure why the hyperlink is not working -->
+          <a href="/"><paper-button class="custom blue" raised>Shop</paper-button></a>
         </div>
         <div id="right-bar-item">
           <paper-icon-button icon="shopping-cart" aria-label="Shopping Cart : 0 items"></paper-icon-button>
         </div>
       </app-toolbar>
+
+      <!-- Lazy load the tabs for large screen -->
+      <template is="dom-if" if="[[!_shouldRenderDrawer]]">
+        <template id="shopTabsBar" is="dom-repeat" items="[[categories]]" as="category">
+          <shop-tabs-bar>
+            <shop-tab>
+              <a name="[[category.name]]" href="/list/[[category.name]]">
+                <paper-button>[[category.name]]</paper-button>
+              </a>
+            </shop-tab>
+          </shop-tabs-bar>
+        </template>
+      </template>
     </app-header>
 
     <!-- Lazy load the drawer -->
     <template is="dom-if" if="[[_shouldRenderDrawer]]">
       <app-drawer id="drawer" opened="{{drawerOpened}}" swipe-open tabindex="0">
-        <iron-selector role="navigation" class="drawer-list" selected="0" attr-for-delected="name">
-          <template id="drawerDomRepeat" is="dom-repeat" items="[[categories]]" as="category">
-            <a name="[[category.name]]" href="/list/[[category.name]]">[[category.title]]</a>
-          </template>
-        </iron-selector>
+        <template id="drawerDomRepeat" is="dom-repeat" items="[[categories]]" as="category">
+          <shop-tabs-drawer>
+            <shop-tab>
+              <a name="[[category.name]]" href="/list/[[category.name]]">
+                <paper-button>[[category.title]] : [[category.items.length]]</paper-button>
+              </a>
+            </shop-tab>
+          </shop-tabs-drawer>
+        </template>
       </app-drawer>
     </template>
 
-    <!-- Lazy load the tabs for large screen -->
-    <template is="dom-if" if="[[!_shouldRenderDrawer]]">
-      <p> shop tabs </p>
-    </template>
 
     <p>Test shop-app : {{categories.length}}</p>
     <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="error">
       <shop-home name="home"></shop-home>
-      <shop-list name="list"></shop-list>
+      <shop-list name="list" route="[[routeTail]]"></shop-list>
       <shop-detail name="detail"></shop-detail>
       <shop-cart name="cart"></shop-cart>
       <shop-checkout name="checkout"></shop-checkout>

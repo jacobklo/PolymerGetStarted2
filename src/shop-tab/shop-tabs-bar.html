@@ -1,0 +1,21 @@
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<dom-module id="shop-tabs-bar">
+  <template>
+    <style is="custom-style">
+      .flex-horizontal {
+        @apply(--layout-horizontal);
+        display : inline-block;
+      }
+    </style>
+
+    <div class="container flex-horizontal">
+      <content></content>
+    </div>
+  </template>
+  <script>
+    Polymer ({
+      is : 'shop-tabs-bar'
+    });
+  </script>
+</dom-module>

@@ -1,0 +1,20 @@
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<dom-module id="shop-tabs-drawer">
+  <template>
+    <style is="custom-style">
+      .flex-vertical {
+        @apply(--layout-vertical);
+      }
+    </style>
+
+    <div class="container flex-vertical">
+      <content></content>
+    </div>
+  </template>
+  <script>
+    Polymer ({
+      is : 'shop-tabs-drawer'
+    });
+  </script>
+</dom-module>

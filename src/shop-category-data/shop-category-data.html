@@ -41,6 +41,19 @@
           type : Object
           , observer : '_category3Changed'
         }
+
+        , currentCategoryName : {
+          type : String
+          , readOnly : false
+          , notify : true
+        }
+
+        , currentCategory : {
+          type : Object
+          , readOnly : false
+          , notify : true
+          , computed : '_computeCurrentCategory(currentCategoryName)'
+        }
       }
 
       , _categoriesChanged : function ( categories, oldCategories ) {
@@ -53,7 +66,9 @@
         }
         //var str = JSON.stringify(this.categories, null, 4);
         //console.log(str);
+        console.log ( " Cat change in shop-app : " + categories.length);
       }
+
 
       , _category0Changed : function ( category0, oldCategory0) {
         this.set('categories.0.items', this.category0);
@@ -66,6 +81,16 @@
       }
       , _category3Changed : function ( category3, oldCategory3) {
         this.set('categories.3.items', this.category3);
+      }
+
+      , _computeCurrentCategory : function (currentCategoryName) {
+        console.log ( " before loop _computeCurrentCategory : " + c.name);
+        for (var i = 0 ,c ; c = this.categories.length ; i++) {
+          if (c.name === currentCategoryName) {
+            console.log ( " _computeCurrentCategory : " + c.name);
+            return c;
+          }
+        }
       }
 
       , ready: function () {

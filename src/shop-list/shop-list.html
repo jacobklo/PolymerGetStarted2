@@ -1,10 +1,24 @@
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+
 <!-- Import styles -->
 <link rel="import" type="css" href="shop-list-css.html">
+
+<!-- Import Class-->
+<link rel="import" href="../shop-category-data/shop-category-data.html">
 
 <dom-module id="shop-list">
   <template>
     <style include="shop-list-styles"></style>
-    <p>Test polymer list</p>
+    <app-route
+      route="[[route]]"
+      pattern="/:category"
+      data="{{routeData}}">
+    </app-route>
+
+    <shop-category-data id="cat" categories="{{categories}}"></shop-category-data>
+    <p>[[category]]</p>
+
+    <p>Test polymer list : [[category.name]]</p>
   </template>
 
   <script type="text/javascript" src="shop-list.js"></script>

@@ -27,16 +27,11 @@ Polymer({
   // observers
   , observers : [
     '_routePageChanged(routeData.page)'
-    , '_categoriesChanged(categories)'
   ]
 
   , _routePageChanged(page) {
     this.page = page || 'home';
     this.drawerOpened = false;
-  }
-
-  , _categoriesChanged(categories) {
-    console.log ( " Cat change in shop-app : " + categories.length);
   }
 
   , _drawerOpenedChanged(drawerOpened, oldDrawerOpened) {
@@ -69,4 +64,5 @@ Polymer({
   , _toggleDrawer() {
     this.drawerOpened = !this.drawerOpened;
   }
+
 });
