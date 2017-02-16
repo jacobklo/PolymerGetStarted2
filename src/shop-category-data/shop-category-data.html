@@ -27,6 +27,17 @@
           , notify : true
         }
 
+        , currentItemName : {
+          type : String
+          , notify : true
+          , observer : '_currentItemNameChanged'
+        }
+
+        , currentItem : {
+          type : Object
+          , notify : true
+        }
+
         , categories : {
           type : Array
           // DON'T PUT DEFAULT VALUE, as dta binding is both way and will reset the child value
@@ -59,8 +70,11 @@
       ]
 
       , _currentCategoryNameChanged : function (currentCategoryName, oldCurrentCategoryName) {
-        this.set('currentCategoryName', currentCategoryName);
         this.updateCurrentCategory(currentCategoryName);
+      }
+
+      , _currentItemNameChanged : function ( currentItemName, oldCurrentItemName ) {
+        this.updateCurrentItem(this.currentCategory,currentItemName);
       }
 
       , _categoriesChanged : function ( categories ) {
@@ -77,7 +91,7 @@
       }
 
       , updateCurrentCategory : function (currentCategoryName) {
-        if ( !(this.categories ) ) {
+        if ( !(this.categories ) || !currentCategoryName) {
           return;
         }
         for (var i = 0 ; i < this.categories.length ; i++) {
@@ -86,6 +100,18 @@
             {
               this.set('currentCategory', this.categories[i]);
             }
+          }
+        }
+        this.updateCurrentItem(this.currentCategory, this.currentItemName);
+      }
+
+      , updateCurrentItem : function ( currentCategory, currentItemName) {
+        if (!currentCategory || !currentItemName || !currentCategory.items || currentCategory.items.length <= 0) {
+          return;
+        }
+        for ( var i = 0 ; i < currentCategory.items.length ; i++ ) {
+          if (currentCategory.items[i].name == currentItemName) {
+            this.set ('currentItem', currentCategory.items[i]);
           }
         }
       }

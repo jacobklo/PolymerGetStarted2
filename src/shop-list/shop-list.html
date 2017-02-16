@@ -1,10 +1,8 @@
-<link rel="import" href="../../bower_components/app-route/app-route.html">
 
 <!-- Import styles -->
 <link rel="import" type="css" href="shop-list-css.html">
 
 <!-- Import Class-->
-<link rel="import" href="../shop-category-data/shop-category-data.html">
 <link rel="import" href="shop-list-item.html">
 
 
@@ -17,7 +15,7 @@
         data="{{routeData}}"></app-route>
 
     <!-- REMEMBER : use current-category-name instead of currentCategoryName . CHeck : property-name-mapping-->
-    <shop-category-data id="cat" current-category-name="[[routeData.category]]" current-category="{{category}}"></shop-category-data>
+    <shop-category-data current-category-name="[[routeData.category]]" current-category="{{category}}"></shop-category-data>
 
     <header>
       <h2>[[category.title]]</h2>

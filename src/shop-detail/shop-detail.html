@@ -1,11 +1,43 @@
+
 <!-- Import styles -->
 <link rel="import" type="css" href="shop-detail-css.html">
 
 <dom-module id="shop-detail">
   <template>
     <style include="shop-detail-styles"></style>
-    <p>Test polymer Detail</p>
-  </template>
 
+    <app-route
+      route="[[route]]"
+      pattern="/:category/:item"
+      data="{{routeData}}"></app-route>
+
+    <shop-category-data
+        current-category-name="[[routeData.category]]"
+        current-item-name="[[routeData.item]]"
+        current-item="{{item}}"></shop-category-data>
+
+    <div id="content">
+      <div class="detail" has-content$="[[_isDefined(item)]]">
+        <h1>[[item.title]]</h1>
+        <div class="price">[[item.price]]</div>
+        <div class="pickers">
+          <label id="sizeLabel">Size : </label>
+          <select id="sizeSelect">
+            <option value="M" selected>M</option>
+          </select>
+
+          <label id="quantityLabel">Quantity</label>
+          <select id="quantitySelect">
+            <option value="1" selected>1</option>
+          </select>
+        </div>
+        <div class="description">
+          <h2>Description</h2>
+          <p id="desc"></p>
+        </div>
+      </div>
+      <!--TODO: add shopping cart -->
+    </div>
+  </template>
   <script type="text/javascript" src="shop-detail.js"></script>
 </dom-module>

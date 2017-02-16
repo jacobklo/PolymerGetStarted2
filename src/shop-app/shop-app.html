@@ -83,12 +83,10 @@
       </app-drawer>
     </template>
 
-
-    <p>Test shop-app : {{categories.length}}</p>
     <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="error">
       <shop-home name="home"></shop-home>
       <shop-list name="list" route="[[routeTail]]"></shop-list>
-      <shop-detail name="detail"></shop-detail>
+      <shop-detail name="detail" route="[[routeTail]]"></shop-detail>
       <shop-cart name="cart"></shop-cart>
       <shop-checkout name="checkout"></shop-checkout>
       <shop-error name="error"></shop-error>

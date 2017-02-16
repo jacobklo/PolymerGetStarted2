@@ -4,11 +4,6 @@
 Polymer ({
   is : 'shop-list'
 
-  , properties : {
-    route : Object
-    , routeData : Object
-  }
-
   , _getListItems : function (items) {
     // REMEMBER : placeholder idea from the example is smart
     return items || [{},{},{},{},{},{},{},{},{},{},{},{} ];
