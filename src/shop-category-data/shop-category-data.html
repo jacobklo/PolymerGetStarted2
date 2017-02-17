@@ -1,6 +1,11 @@
+<link rel="import" href="../../bower_components/app-storage/app-localstorage/app-localstorage-document.html">
+
 <link rel="import" href="../shop-lib/shop-json.html">
 <dom-module id="shop-category-data">
   <template>
+    <shop-json id="jsonVersion" obj="{{categoriesVersion}}"></shop-json>
+    <app-localstorage-document key="shop-category-data-version" data="{{previousCategoriesVersion}}"></app-localstorage-document>
+    <app-localstorage-document key="shop-category-data" data="{{categories}}"></app-localstorage-document>
     <shop-json id="jsonElement" obj="{{categories}}"></shop-json>
     <shop-json id="jsonElement0" obj="{{category0}}"></shop-json>
     <shop-json id="jsonElement1" obj="{{category1}}"></shop-json>
@@ -16,7 +21,13 @@
       is: 'shop-category-data'
 
       , properties : {
-        currentCategoryName : {
+        categoriesVersion : {
+          type : Number
+          , notify : true
+          , observer : '_categoriesVersionChanged'
+        }
+
+        , currentCategoryName : {
           type : String
           , notify : true
           , observer : '_currentCategoryNameChanged'
@@ -68,6 +79,14 @@
       , observers : [
         '_categoriesChanged(categories.*)'
       ]
+
+      , _categoriesVersionChanged : function (categoriesVersion, oldCategoriesVersion) {
+        if (categoriesVersion != 0 && categoriesVersion != this.previousCategoriesVersion) {
+          console.log ( "refresh Categories loaded : " + categoriesVersion + " " + this.previousCategoriesVersion);
+          this.$$('#jsonElement').fetchObj('obj', '/data/categories.json');
+          this.set('previousCategoriesVersion', categoriesVersion);
+        }
+      }
 
       , _currentCategoryNameChanged : function (currentCategoryName, oldCurrentCategoryName) {
         this.updateCurrentCategory(currentCategoryName);
@@ -130,7 +149,7 @@
       }
 
       , ready: function () {
-        this.$$('#jsonElement').fetchObj('obj', '/data/categories.json');
+        this.$$('#jsonVersion').fetchObj('obj', '/data/CategoriesVersion.json');
       }
     });
 
