@@ -1,0 +1,95 @@
+<link rel="import" href="../../bower_components/app-storage/app-localstorage/app-localstorage-document.html">
+
+<dom-module id="shop-cart-data">
+  <template>
+    <app-localstorage-document key="shop-cart-data" data="{{cart}}"></app-localstorage-document>
+  </template>
+  <script>
+    Polymer ({
+      is : 'shop-cart-data'
+      , properties : {
+        cart : {
+          type : Array
+          , value : []
+          , notify : true
+          , observer : '_cartChanged'
+        }
+
+        , numItem : {
+          type : Number
+          , notify : true
+          , computed : '_computeNumItems(cart.splices)'
+        }
+
+        , totalPrice : {
+          type : Number
+          , notify : true
+          , compute : '_computeTotalPrice(cart.splices)'
+        }
+      }
+
+      , _cartChanged(cart, OldCart) {
+        console.log ( "cart changed : " + cart.length);
+      }
+
+      , _computeNumItems : function () {
+        if ( !this.cart) {
+          return;
+        }
+        return this.cart.reduce( (accumulatedItems, currentItem) => accumulatedItems + currentItem.quantity, 0);
+      }
+
+      , _computeNumPrice : function () {
+        if ( !this.cart ) {
+          return;
+        }
+        return this.cart.reduce( (accumulatedPrice, currentPrice) =>
+          accumulatedPrice + currentPrice.quantity * currentPrice.item.price, 0);
+      }
+
+      , _indexOfEntry : function (name ,size ) {
+        if ( !this.cart ) {
+          return -1;
+        }
+        for ( var i = 0 ; i < this.cart.length ; i++ ) {
+          if (this.cart[i].item.name === name && this.cart[i].size === size) {
+            return i;
+          }
+        }
+        return -1;
+      }
+
+      , setItem : function ( detail, manupulateItem ) {
+        var i = _indexOfEntry(detail.item.name, detail.size);
+        if (typeof manupulateItem == 'undefined' ) {
+          manupulateItem = function(detail) { return detail; };
+        }
+        var newDetail = manupulateItem(detail);
+        if ( i === -1 ) {
+          if (newDetail.quantity !== 0) {
+            this.push('cart', newDetail);
+          }
+        }
+        else {
+          if ( newDetail.quantity !== 0) {
+            this.splice('cart', i , 1 , detail);
+          }
+          else {
+            this.splice('cart', i, 1);
+          }
+        }
+      }
+
+      , addItem : function ( detail) {
+        this.setItem ( detail, function ( newDetail ) {
+          if (!newDetail.quantity) {
+            newDetail.quantity = 0;
+          }
+          newDetail.quantity += 1;
+          return newDetail;
+        });
+      }
+
+    });
+  </script>
+</dom-module>
