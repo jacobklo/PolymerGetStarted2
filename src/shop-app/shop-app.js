@@ -29,6 +29,13 @@ Polymer({
     '_routePageChanged(routeData.page)'
   ]
 
+  // listeners
+  , listeners : {
+    'add-cart-item': '_onAddCartItem'
+    , 'set-cart-item': '_onSetCartItem'
+    , 'clearCart': '_onClearCart'
+  }
+
   , _routePageChanged(page) {
     this.page = page || 'home';
     this.drawerOpened = false;
@@ -41,8 +48,7 @@ Polymer({
   }
 
   // ready
-  , ready : function() {
-
+  , attached : function() {
   }
 
   // methods
@@ -62,6 +68,11 @@ Polymer({
 
   , _toggleDrawer() {
     this.drawerOpened = !this.drawerOpened;
+  }
+
+
+  , _onAddCartItem : function ( event ) {
+    this.$.shopCart.addItem(event.detail);
   }
 
 });

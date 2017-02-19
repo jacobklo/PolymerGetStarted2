@@ -12,10 +12,9 @@
           type : Array
           , value : []
           , notify : true
-          , observer : '_cartChanged'
         }
 
-        , numItem : {
+        , numItems : {
           type : Number
           , notify : true
           , computed : '_computeNumItems(cart.splices)'
@@ -28,20 +27,25 @@
         }
       }
 
-      , _cartChanged(cart, OldCart) {
-        console.log ( "cart changed : " + cart.length);
+      // observers
+      , observers : [
+        '_cartChanged(cart.*)'
+      ]
+
+      , _cartChanged : function(cartSplices) {
+        console.log ( "cart changed : " + cartSplices.base.length + " NumItem : " + this.numItems);
       }
 
       , _computeNumItems : function () {
         if ( !this.cart) {
-          return;
+          return 0;
         }
         return this.cart.reduce( (accumulatedItems, currentItem) => accumulatedItems + currentItem.quantity, 0);
       }
 
       , _computeNumPrice : function () {
         if ( !this.cart ) {
-          return;
+          return 0;
         }
         return this.cart.reduce( (accumulatedPrice, currentPrice) =>
           accumulatedPrice + currentPrice.quantity * currentPrice.item.price, 0);
@@ -60,19 +64,20 @@
       }
 
       , setItem : function ( detail, manupulateItem ) {
-        var i = _indexOfEntry(detail.item.name, detail.size);
+        var i = this._indexOfEntry(detail.item.name, detail.size);
         if (typeof manupulateItem == 'undefined' ) {
           manupulateItem = function(detail) { return detail; };
         }
-        var newDetail = manupulateItem(detail);
         if ( i === -1 ) {
+          var newDetail = manupulateItem(detail);
           if (newDetail.quantity !== 0) {
             this.push('cart', newDetail);
           }
         }
         else {
+          var newDetail = manupulateItem(detail, this.cart[i]);
           if ( newDetail.quantity !== 0) {
-            this.splice('cart', i , 1 , detail);
+            this.splice('cart', i , 1 , newDetail);
           }
           else {
             this.splice('cart', i, 1);
@@ -81,13 +86,16 @@
       }
 
       , addItem : function ( detail) {
-        this.setItem ( detail, function ( newDetail ) {
-          if (!newDetail.quantity) {
-            newDetail.quantity = 0;
+        this.setItem ( detail, function ( newDetail, currentDetail ) {
+          if (currentDetail){
+            newDetail.quantity += currentDetail.quantity;
           }
-          newDetail.quantity += 1;
           return newDetail;
         });
+      }
+
+      , clearCart : function () {
+        this.cart = [];
       }
 
     });

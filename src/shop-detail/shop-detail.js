@@ -37,4 +37,15 @@ Polymer ({
     return e.textContent;
   }
 
+  , _addThisItem : function () {
+    if ( !this.item ) {
+      return;
+    }
+    this.fire('add-cart-item', {
+      item: this.item
+      , quantity: parseInt ( this.$.quantitySelect.value, 10)
+      , size: this.$.sizeSelect.value
+    });
+  }
+
 });

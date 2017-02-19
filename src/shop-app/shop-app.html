@@ -19,6 +19,7 @@
 <!-- Import class -->
 <!-- TODO : change to lazy load -->
 <link rel="import" href="../shop-category-data/shop-category-data.html">
+<link rel="import" href="../shop-cart/shop-cart-data.html">
 <link rel="import" href="../shop-tab/shop-tabs-drawer.html">
 <link rel="import" href="../shop-tab/shop-tabs-bar.html">
 <link rel="import" href="../shop-tab/shop-tab.html">
@@ -39,6 +40,7 @@
     <iron-media-query query="max-width: 700px" query-matches="{{smallScreen}}"></iron-media-query>
 
     <shop-category-data id="cat" categories="{{categories}}"></shop-category-data>
+    <shop-cart-data id="shopCart" cart="{{cart}}" total-price="{{total}}" num-items="{{numItem}}"></shop-cart-data>
 
     <app-header role="navigation" id="header" effects="waterfall" condenses reveals>
       <app-toolbar>
@@ -50,7 +52,8 @@
           <a href="/"><paper-button class="custom blue" raised>Shop</paper-button></a>
         </div>
         <div id="right-bar-item">
-          <paper-icon-button icon="shopping-cart" aria-label="Shopping Cart : 0 items"></paper-icon-button>
+          <paper-icon-button icon="shopping-cart" aria-label="Shopping Cart : [[numItem]] items"></paper-icon-button>
+          <paper-button>{{numItem}}</paper-button>
         </div>
       </app-toolbar>
 
