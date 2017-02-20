@@ -4,7 +4,19 @@
 <dom-module id="shop-cart">
   <template>
     <style include="shop-cart-styles"></style>
-    <p>Test polymer Cart</p>
+    <shop-cart-data cart="{{cart}}" num-items="{{numItems}}" total-price="{{totalPrice}}"></shop-cart-data>
+    <div class="main">
+      <template is="dom-if" if="[[!_hasItems]]">
+        <div class="section">
+          <p class="empty-cart">Your shopping cart is empty!</p>
+        </div>
+      </template>
+      <template is="dom-if" if="[[_hasItems]]">
+        <div class="section">
+          <p class="cart-banner">Shopping Cart</p>
+        </div>
+      </template>
+    </div>
   </template>
 
   <script type="text/javascript" src="shop-cart.js"></script>
