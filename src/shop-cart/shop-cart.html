@@ -1,6 +1,8 @@
 <!-- Import styles -->
 <link rel="import" type="css" href="shop-cart-css.html">
 
+<link rel="import" href="shop-cart-item.html">
+
 <dom-module id="shop-cart">
   <template>
     <style include="shop-cart-styles"></style>
@@ -16,7 +18,7 @@
           <p class="cart-banner">Shopping Cart : [[numItems]] items</p>
           <div class="list">
             <template is="dom-repeat" items="[[cart]]" as="entry">
-              <p>[[entry.item.title]]</p>
+              <shop-cart-item entry="{{entry}}"></shop-cart-item>
             </template>
           </div>
           <div class="checkout">

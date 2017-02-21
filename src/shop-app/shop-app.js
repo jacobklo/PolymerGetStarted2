@@ -79,4 +79,14 @@ Polymer({
     this.$.shopCart.addItem(event.detail);
   }
 
+  , _onSetCartItem : function ( event ) {
+    this.$.shopCart.setItem(event.detail, function ( newDetail, currentDetail ) {
+      if (currentDetail) {
+        newDetail.quantity = currentDetail.quantity;
+      }
+      console.log( " _onSetCartItem : " + newDetail.quantity);
+      return newDetail;
+    });
+  }
+
 });

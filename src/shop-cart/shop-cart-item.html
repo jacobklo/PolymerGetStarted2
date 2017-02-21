@@ -1,0 +1,39 @@
+<link rel="import" type="css" href="shop-cart-item-css.html">
+<dom-module id="shop-cart-item">
+  <template>
+    <style include="shop-cart-item-styles"></style>
+    <a href$="/details/[[entry.item.category]]/[[entry.item.name]]" title$="[[entry.item.title]]">
+      <!--
+      <img id="img" src="[[entry.item.image]]" alt="[[entry.item.title]]">
+      -->
+    </a>
+    <div class="flex">
+      <div class="name">
+        <a href$="/details/[[entry.item.category]]/[[entry.item.name]]">[[entry.item.title]]</a>
+      </div>
+      <div lass="detail">
+        <div class="quantity">
+          <label>Quantity:</label>
+          <select id="quantitySelect" aria-label="Change Quantity" value="[[entry.quantity]]" on-change="_quantityChange">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+        </div>
+        <div class="size">
+          Size : <span>[[entry.size]]</span>
+        </div>
+        <div class="price">
+          $ [[entry.item.price]]
+        </div>
+        <paper-icon-button class="delete-button" icon="close"
+                           aria-label=" Delete item [[entry.item.title]]"
+                           on-click="_removeItem"></paper-icon-button>
+      </div>
+    </div>
+  </template>
+  <script type="text/javascript" src="shop-cart-item.js"></script>
+</dom-module>
