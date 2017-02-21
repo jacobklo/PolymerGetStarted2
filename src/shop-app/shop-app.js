@@ -66,8 +66,12 @@ Polymer({
     return shouldRenderDrawer;
   }
 
-  , _toggleDrawer() {
+  , _toggleDrawer : function() {
     this.drawerOpened = !this.drawerOpened;
+  }
+
+  , _onClickShoppingCart: function() {
+    this.set('route.path','/cart');
   }
 
 

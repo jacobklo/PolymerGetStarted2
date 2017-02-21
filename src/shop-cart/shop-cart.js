@@ -5,10 +5,14 @@ Polymer ({
   is : 'shop-cart'
 
   , properties : {
-    cart : {
+    route : Object
+
+    , cart : {
       type : Array
       , notify : false
     }
+
+    , totalPrice : Number
 
     , _hasItems : {
       type : Boolean
@@ -19,5 +23,9 @@ Polymer ({
 
   , _computeHasItem : function(cartLength) {
     return cartLength > 0;
+  }
+
+  , _onClickCheckout : function () {
+    this.set('route.path', '/checkout');
   }
 });

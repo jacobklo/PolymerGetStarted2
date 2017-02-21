@@ -13,7 +13,16 @@
       </template>
       <template is="dom-if" if="[[_hasItems]]">
         <div class="section">
-          <p class="cart-banner">Shopping Cart</p>
+          <p class="cart-banner">Shopping Cart : [[numItems]] items</p>
+          <div class="list">
+            <template is="dom-repeat" items="[[cart]]" as="entry">
+              <p>[[entry.item.title]]</p>
+            </template>
+          </div>
+          <div class="checkout">
+            Total : <span class="total">$[[totalPrice]]</span>
+            <paper-button on-click="_onClickCheckout">Checkout</paper-button>
+          </div>
         </div>
       </template>
     </div>

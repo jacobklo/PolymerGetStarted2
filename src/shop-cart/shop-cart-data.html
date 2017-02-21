@@ -25,7 +25,7 @@
         , totalPrice : {
           type : Number
           , notify : true
-          , compute : '_computeTotalPrice(cart.splices)'
+          , computed : '_computeTotalPrice(cart.splices)'
         }
       }
 
@@ -45,12 +45,13 @@
         return this.cart.reduce( (accumulatedItems, currentItem) => accumulatedItems + currentItem.quantity, 0);
       }
 
-      , _computeNumPrice : function () {
+      , _computeTotalPrice : function () {
         if ( !this.cart ) {
           return 0;
         }
-        return this.cart.reduce( (accumulatedPrice, currentPrice) =>
-          accumulatedPrice + currentPrice.quantity * currentPrice.item.price, 0);
+        var resultPrice = this.cart.reduce( (accumulatedPrice, currentPrice) =>
+        accumulatedPrice + currentPrice.quantity * currentPrice.item.price, 0);
+        return resultPrice;
       }
 
       , _indexOfEntry : function (name ,size ) {

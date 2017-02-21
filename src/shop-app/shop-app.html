@@ -52,8 +52,8 @@
           <a href="/"><paper-button class="custom blue" raised>Shop</paper-button></a>
         </div>
         <div id="right-bar-item">
-          <paper-icon-button icon="shopping-cart" aria-label="Shopping Cart : [[numItem]] items"></paper-icon-button>
-          <paper-button>{{numItem}}</paper-button>
+          <paper-icon-button icon="shopping-cart" on-click="_onClickShoppingCart" aria-label="Shopping Cart : [[numItem]] items"></paper-icon-button>
+          <paper-button on-click="_onClickShoppingCart">{{numItem}}</paper-button>
         </div>
       </app-toolbar>
 
@@ -90,7 +90,7 @@
       <shop-home name="home"></shop-home>
       <shop-list name="list" route="[[routeTail]]"></shop-list>
       <shop-detail name="detail" route="[[routeTail]]"></shop-detail>
-      <shop-cart name="cart"></shop-cart>
+      <shop-cart name="cart" route="{{route}}"></shop-cart>
       <shop-checkout name="checkout"></shop-checkout>
       <shop-error name="error"></shop-error>
     </iron-pages>
