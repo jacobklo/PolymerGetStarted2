@@ -29,15 +29,6 @@
         }
       }
 
-      // observers
-      , observers : [
-        '_cartChanged(cart.*)'
-      ]
-
-      , _cartChanged : function(cartSplices) {
-        console.log ( "cart changed : " + cartSplices.base.length + " NumItem : " + this.numItems);
-      }
-
       , _computeNumItems : function () {
         if ( !this.cart) {
           return 0;
@@ -86,6 +77,10 @@
             this.splice('cart', i, 1);
           }
         }
+        // Possible polymer bug here, need to do Array Override dirty check
+        var cart1 = this.cart;
+        this.cart = [];
+        this.cart = cart1;
       }
 
       , addItem : function ( detail) {

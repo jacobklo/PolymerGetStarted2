@@ -17,6 +17,7 @@
     ,"iron-icons" : "polymerelements/iron-icons#^1.0.0"
     ,"paper-button" : "polymerelements/paper-button#^1.0.14"
     ,"app-storage" : "polymerelements/app-storage#^0.9.8"
+    ,"paper-input" : "polymerelements/paper-input#^1.1.23"
 
   }
   ,"devDependencies":

@@ -17,7 +17,7 @@
         <div class="section">
           <p class="cart-banner">Shopping Cart : [[numItems]] items</p>
           <div class="list">
-            <template is="dom-repeat" items="[[cart]]" as="entry">
+            <template id="cartDomRepeat" is="dom-repeat" items="[[cart]]" as="entry">
               <shop-cart-item entry="{{entry}}"></shop-cart-item>
             </template>
           </div>

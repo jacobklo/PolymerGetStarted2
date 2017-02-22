@@ -1,3 +1,5 @@
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+
 <link rel="import" type="css" href="shop-cart-item-css.html">
 <dom-module id="shop-cart-item">
   <template>
@@ -12,26 +14,24 @@
         <a href$="/details/[[entry.item.category]]/[[entry.item.name]]">[[entry.item.title]]</a>
       </div>
       <div lass="detail">
-        <div class="quantity">
-          <label>Quantity:</label>
-          <select id="quantitySelect" aria-label="Change Quantity" value="[[entry.quantity]]" on-change="_quantityChange">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-          </select>
-        </div>
         <div class="size">
           Size : <span>[[entry.size]]</span>
         </div>
         <div class="price">
           $ [[entry.item.price]]
         </div>
-        <paper-icon-button class="delete-button" icon="close"
-                           aria-label=" Delete item [[entry.item.title]]"
-                           on-click="_removeItem"></paper-icon-button>
+        <div class="quantity">
+          <label>Quantity:</label>
+          <div class="inputBox">
+            <paper-input id="inputQuantity" type="number" value="{{entry.quantity}}" on-input="_itemQuantityChanged"></paper-input>
+          </div>
+          <paper-icon-button class="add-button" icon="add" on-click="_addItem"></paper-icon-button>
+          <paper-icon-button class="remove-button" icon="remove" on-click="_removeOneItem"></paper-icon-button>
+          <paper-icon-button class="delete-button" icon="close"
+                             aria-label=" Delete item [[entry.item.title]]"
+                             on-click="_removeItems"></paper-icon-button>
+        </div>
+
       </div>
     </div>
   </template>
