@@ -4,6 +4,7 @@
 <dom-module id="shop-cart-item">
   <template>
     <style include="shop-cart-item-styles"></style>
+
     <a href$="/details/[[entry.item.category]]/[[entry.item.name]]" title$="[[entry.item.title]]">
       <!--
       <img id="img" src="[[entry.item.image]]" alt="[[entry.item.title]]">
@@ -21,15 +22,13 @@
           $ [[entry.item.price]]
         </div>
         <div class="quantity">
-          <label>Quantity:</label>
-          <div class="inputBox">
-            <paper-input id="inputQuantity" type="number" value="{{entry.quantity}}" on-input="_itemQuantityChanged"></paper-input>
-          </div>
-          <paper-icon-button class="add-button" icon="add" on-click="_addItem"></paper-icon-button>
-          <paper-icon-button class="remove-button" icon="remove" on-click="_removeOneItem"></paper-icon-button>
+          <label id="quantityLabel">Quantity:</label>
+          <paper-input id="inputQuantity" type="number" value="{{itemQuantity}}" ></paper-input>
           <paper-icon-button class="delete-button" icon="close"
                              aria-label=" Delete item [[entry.item.title]]"
                              on-click="_removeItems"></paper-icon-button>
+          <paper-icon-button class="remove-button" icon="remove" on-click="_removeOneItem"></paper-icon-button>
+          <paper-icon-button class="add-button" icon="add" on-click="_addItem"></paper-icon-button>
         </div>
 
       </div>

@@ -3,46 +3,54 @@ Polymer ({
 
   , properties : {
     entry : Object
+
+    , itemQuantity : {
+      type : Number
+      , observer : '_itemQuantityChanged'
+    }
   }
 
   , _setCartItem : function (quantity) {
-    var i = Number(quantity);
-    if (i < 0) {
-      i = 1;
-    }
     this.fire('set-cart-item', {
       item : this.entry.item
-      , quantity : i
+      , quantity : Number(quantity)
       , size : this.entry.size
     });
   }
 
   , _addItem : function () {
-    this._setCartItem(this.entry.quantity+1);
+    this.set('itemQuantity', this.entry.quantity+1);
   }
 
   , _removeOneItem : function () {
-    this._setCartItem(this.entry.quantity-1);
+    this.set('itemQuantity', this.entry.quantity-1);
   }
 
   , _removeItems : function () {
     this._setCartItem(0);
   }
 
-  // TODO : still change really correct
-  , _itemQuantityChanged : function () {
-    var i = Number(this.$.inputQuantity.value);
-    if (this.isPositiveInteger(i)) {
-      this._setCartItem(i);
+  , _itemQuantityChanged : function (itemQuantity, oldItemQuantity) {
+    this.prepareToSetQuantity(itemQuantity);
+  }
+
+  , prepareToSetQuantity : function (quantity) {
+    if (!this.isPositiveInteger(quantity)) {
+      if (this.itemQuantity !== this.entry.quantity ) {
+        this.itemQuantity = this.entry.quantity;
+      }
+      return;
     }
-    else {
-      this.$.inputQuantity.value = this.entry.quantity;
+    var i = Number(quantity);
+    if (i === this.entry.quantity) {
+      return;
     }
+    this._setCartItem(i);
   }
 
   , isPositiveInteger : function(str) {
-    var n = Math.floor(Number(str));
-    return n === String(n) && n > 0;
+    var n = Number(str);
+    return n > 0;
   }
 
 });

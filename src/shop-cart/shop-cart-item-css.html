@@ -1,9 +1,44 @@
 <dom-module id="shop-cart-item-styles">
   <template>
     <style>
-      .inputBox {
-        width : 100px
+      :root {
+        --paper-input-container: {
+          min-width: 50px;
+          margin-right: 24px;
+        };
       }
+
+      .flex {
+        margin-top: 0px;
+        margin-bottom: 100px;
+        margin-left: 0px;
+        width : 100%
+      }
+
+      .quantity {
+        vertical-align:text-bottom;
+        horiz-align : center;
+        text-align : center;
+      }
+
+      #quantityLabel {
+        float:left;
+      }
+
+      #inputQuantity {
+        float:left;
+      }
+      .delete-button {
+        float:right;
+      }
+      .add-button {
+        float:right;
+      }
+      .remove-button {
+        float:right;
+      }
+
+
     </style>
   </template>
 </dom-module>
