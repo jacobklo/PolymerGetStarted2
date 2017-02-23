@@ -77,6 +77,11 @@ Polymer({
 
   , _onAddCartItem : function ( event ) {
     this.$.shopCart.addItem(event.detail);
+    if (!this._cartModal) {
+      this._cartModal = document.createElement('shop-cart-modal');
+      Polymer.dom(this.root).appendChild(this._cartModal);
+    }
+    this._cartModal.open();
   }
 
   , _onSetCartItem : function ( event ) {
