@@ -5,8 +5,7 @@ Polymer ({
   is : 'shop-cart-modal'
 
   , behaviors : [
-    Polymer.IronOverlayBehaviorImpl
+    Polymer.IronOverlayBehavior
   ]
 
-  , refit: Function()
 });

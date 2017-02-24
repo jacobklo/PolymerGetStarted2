@@ -1,0 +1,20 @@
+<dom-module id="shop-button">
+  <template>
+    <paper-button on-click="_onInput"><content></content></paper-button>
+  </template>
+  <script>
+    Polymer ({
+      is : 'shop-button'
+
+      , properties : {
+        href : String
+      }
+
+      , _onInput : function () {
+        if (this.href) {
+          location.href = this.href;
+        }
+      }
+    });
+  </script>
+</dom-module>

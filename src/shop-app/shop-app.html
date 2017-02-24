@@ -24,6 +24,7 @@
 <link rel="import" href="../shop-tab/shop-tabs-bar.html">
 <link rel="import" href="../shop-tab/shop-tab.html">
 <link rel="import" href="../shop-cart/shop-cart-modal.html">
+<link rel="import" href="../shop-lib/shop-button.html">
 
 <dom-module id="shop-app">
   <template>
@@ -50,11 +51,11 @@
         </div>
         <div class="middle-bar-item" main-title>
           <!-- TODO : Not sure why the hyperlink is not working -->
-          <a href="/"><paper-button class="custom blue" raised>Shop</paper-button></a>
+          <shop-button class="custom blue" href="/">Shop</shop-button></a>
         </div>
         <div id="right-bar-item">
           <paper-icon-button icon="shopping-cart" on-click="_onClickShoppingCart" aria-label="Shopping Cart : [[numItem]] items"></paper-icon-button>
-          <paper-button on-click="_onClickShoppingCart">{{numItem}}</paper-button>
+          <shop-button href="/cart">{{numItem}}</shop-button>
         </div>
       </app-toolbar>
 
@@ -64,7 +65,7 @@
           <shop-tabs-bar>
             <shop-tab>
               <a name="[[category.name]]" href="/list/[[category.name]]">
-                <paper-button>[[category.name]]</paper-button>
+                <shop-button>[[category.name]]</shop-button>
               </a>
             </shop-tab>
           </shop-tabs-bar>
@@ -79,7 +80,7 @@
           <shop-tabs-drawer>
             <shop-tab>
               <a name="[[category.name]]" href="/list/[[category.name]]">
-                <paper-button>[[category.title]] : [[category.items.length]]</paper-button>
+                <shop-button>[[category.title]] : [[category.items.length]]</shop-button>
               </a>
             </shop-tab>
           </shop-tabs-drawer>
