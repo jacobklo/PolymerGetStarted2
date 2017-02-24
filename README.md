@@ -4,3 +4,5 @@ This will cause a lot of time, but it is better understand polymer concept is th
 and work the way through it by coding bit by bit and hopefully i will be as good as the ones that create the shop project
 
 This product probably will not as same as the original Polymer shop project but it will be( hopefully if i do i good job ) very close.
+
+* I am moving this project to Bitbucket
